@@ -7,6 +7,18 @@ import skimage.filters as skimage
 import scipy.ndimage.filters as filters
 import time
 
+def filter_map(data):
+    kernel = np.array([
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 2, 1, 1],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 0, 0]
+    ])
+    kernel = kernel/14
+    filtered_data = filters.convolve(data, kernel)
+    return filtered_data
+
 data = np.array([
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -79,14 +91,3 @@ plain = filtered_data[660:700, 450:520]
 show_fit(plain)
 # show_fit(filtered_mount)
 
-def filter_map(data):
-    kernel = np.array([
-        [0, 0, 1, 0, 0],
-        [0, 1, 1, 1, 0],
-        [1, 1, 2, 1, 1],
-        [0, 1, 1, 1, 0],
-        [0, 0, 1, 0, 0]
-    ])
-    kernel = kernel/14
-    filtered_data = filters.convolve(data, kernel)
-    return filtered_data
