@@ -1,14 +1,14 @@
 import numpy as np
 
-def curvature(a, b):
-    return a*b
+def curvature(a,b):
+    return 4/(a**2*b**2)
 
 def correlate(data):
     a = data[:,0]
     b = data[:,1]
     h = data[:,2]
-    circ = np.array([curvature(a[index],b[index]) for index in range(len(a))])
-    correlation = np.corrcoef((circ, h))[0,1]
+    curv = np.array([curvature(a[index],b[index]) for index in range(len(a))])
+    correlation = np.corrcoef((curv, h))[0,1]
     return correlation
 
 if __name__ == '__main__':
