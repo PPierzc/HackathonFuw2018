@@ -9,6 +9,6 @@ def filter_map(data):
         [0, 1, 1, 1, 0],
         [0, 0, 1, 0, 0]
     ])
-    kernel = kernel/14
+    kernel = kernel/np.sum(kernel)
     filtered_data = filters.convolve(data, kernel)
     return filtered_data
