@@ -3,7 +3,7 @@ from skimage.feature import peak_local_max
 import matplotlib.pyplot as plt
 from pprint import pprint
 from scipy import ndimage as ndi
-
+import scipy.ndimage.filters as filters
 
 data = np.array([
     [0, 0, 0, 0, 0, 0, 0],
@@ -50,6 +50,18 @@ start = time.time()
 zeros = np.zeros(data.shape)
 
 maximas = find_maximas(data)
+print(len(maximas))
+kernel = np.array([
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [1, 1, 2, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0]
+])
+
+kernel = kernel/14
+filtered_data = filters.convolve(data, kernel)
+maximas = find_maximas(filtered_data)
 print(len(maximas))
 # for i in maximas:
 #     validate_maxima(i, data)
