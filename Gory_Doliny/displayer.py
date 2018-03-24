@@ -79,7 +79,6 @@ plain = filtered_data[660:700, 450:520]
 show_fit(plain)
 # show_fit(filtered_mount)
 
-
 def filter_map(data):
     kernel = np.array([
         [0, 0, 1, 0, 0],
