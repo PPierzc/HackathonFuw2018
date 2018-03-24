@@ -22,7 +22,7 @@ def ObliczDlugosc(choosen_point,points):
     return dlugosc
 
 
-def RadialDistribution(points,density=1):
+def radial_distribution(points,density=1):
     rho_list_all=[]
     for choosen_point in tqdm(points): 
         
@@ -60,7 +60,7 @@ if __name__=="__main__":
 
 	polozenia=np.array([[0,0],[1,0],[2,0],[3,0],[4,0]])
 	print(polozenia)
-	rho,r=RozkladRadialny(points=polozenia)
+	rho,r=radial_distribution(points=polozenia)
 
 
 
