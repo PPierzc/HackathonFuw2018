@@ -50,60 +50,82 @@ def validate_maxima(coordinate, data):
             run = False
     return False
 
-def show_maximas(coordinates, data):
+def show_maximas(coordinates, data, title):
     zeros = np.zeros(data.shape)
     for coordinate in coordinates:
         zeros[coordinate[0], coordinate[1]] = 1000
-    # plt.imshow(data + zeros)
-    plt.imshow(zeros)
+    plt.imshow(data + zeros)
+    plt.title(title)
+    # plt.imshow(zeros)
     plt.show()
 
 if __name__ == '__main__':
     data = np.loadtxt('/Users/paulpierzchlewicz/Downloads/data.np')
-    data = filter_map(data)
-    peak = data[330:355, 400:440]
-    peak = data[570:580, 470:530]
-    peak = data[390:500, 280:380]
-    peak = data[600:760, 600:760]
-    peak = data[470:570, 310:410]
-    peak = data[0:90, 0:99]
-
-    # fig,ax = plt.subplots(1)
-    # ax.imshow(peak, cmap='rainbow')
-    # plt.show()
-
-    maximas = find_maximas(peak)
-    show_maximas(maximas, peak)
-    # print(maximas)
-    # show_maximas([[56, 44]], peak)
-    # validate_maxima([56, 44], peak)
-    # pprint(gradients)
-    # plt.plot(gradients)
-    # plt.show()
-    #
-    # validate_maxima([9, 32], peak)
-    # pprint(gradients)
-    # plt.plot(gradients)
-    # plt.show()
+    # data = filter_map(data)
     peaks = []
-    for i in maximas[:30]:
-        gradients = []
-        validate_maxima(i, peak)
-        # pprint(gradients)
-        variance = np.var(gradients)
-        pvalue = st.t.cdf(variance, df, loc=mean, scale=std)
-        pvalue = pvalue if pvalue < 0.5 else 1-pvalue
-        # plt.ylim((0, 14))
-        # plt.plot(gradients)
-        # plt.title("{}, {}".format(i, np.var(gradients)))
-        # plt.axhline(np.mean(gradients))
-        # plt.axhline(np.mean(gradients) + np.std(gradients))
-        # plt.axhline(np.mean(gradients) - np.std(gradients))
-        # plt.show()
-        if pvalue > 0.05:
-            peaks.append(i)
-    print(peaks)
-    show_maximas(peaks, peak)
+    for i in range(10):
+        for j in range(10):
+            peak = data[90*i:90*(i+1), 99*j:99*(j+1)]
+            maximas = find_maximas(peak)
 
-    # print('mean', np.mean(gradients[15:]))
-    # print('std', np.std(gradients[15:]))
+            for maxima in maximas:
+                gradients = []
+                validate_maxima(maxima, peak)
+                variance = np.var(gradients)
+                pvalue = st.t.cdf(variance, df, loc=mean, scale=std)
+                pvalue = pvalue if pvalue < 0.5 else 1-pvalue
+                if pvalue > 0.05:
+                    maxima[0] += 90*i
+                    maxima[1] += 99*j
+                    peaks.append(maxima)
+
+    print(len(peaks))
+    show_maximas(peaks, data, '0.05')
+    np.save('peaks.npy', peaks)
+
+    # peak = data[330:355, 400:440]
+    # peak = data[570:580, 470:530]
+    # peak = data[390:500, 280:380]
+    # peak = data[600:760, 600:760]
+    # peak = data[470:570, 310:410]
+    # peak = data[0:90, 0:99]
+    #
+    # # fig,ax = plt.subplots(1)
+    # # ax.imshow(peak, cmap='rainbow')
+    # # plt.show()
+    #
+    # maximas = find_maximas(peak)
+    # show_maximas(maximas, peak)
+    # # print(maximas)
+    # # show_maximas([[56, 44]], peak)
+    # # validate_maxima([56, 44], peak)
+    # # pprint(gradients)
+    # # plt.plot(gradients)
+    # # plt.show()
+    # #
+    # # validate_maxima([9, 32], peak)
+    # # pprint(gradients)
+    # # plt.plot(gradients)
+    # # plt.show()
+    # peaks = []
+    # for i in maximas[:30]:
+    #     gradients = []
+    #     validate_maxima(i, peak)
+    #     # pprint(gradients)
+    #     variance = np.var(gradients)
+    #     pvalue = st.t.cdf(variance, df, loc=mean, scale=std)
+    #     pvalue = pvalue if pvalue < 0.5 else 1-pvalue
+    #     # plt.ylim((0, 14))
+    #     # plt.plot(gradients)
+    #     # plt.title("{}, {}".format(i, np.var(gradients)))
+    #     # plt.axhline(np.mean(gradients))
+    #     # plt.axhline(np.mean(gradients) + np.std(gradients))
+    #     # plt.axhline(np.mean(gradients) - np.std(gradients))
+    #     # plt.show()
+    #     if pvalue > 0.05:
+    #         peaks.append(i)
+    # print(peaks)
+    # show_maximas(peaks, peak)
+    #
+    # # print('mean', np.mean(gradients[15:]))
+    # # print('std', np.std(gradients[15:]))
