@@ -53,6 +53,7 @@ def show_fit(data):
     ax2.plot_surface(xs, ys, data, rstride=1, cstride=1, cmap='hot')
     plt.show()
 
+data = np.loadtxt('/Users/paulpierzchlewicz/Downloads/data.np')
 
 peak1 = data[330:355, 400:440]
 mount = data[660:700, 640:730]

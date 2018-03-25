@@ -17,7 +17,10 @@ data = np.array([
 ])
 
 data = np.loadtxt('/Users/paulpierzchlewicz/Downloads/data.np')
-
+fig,ax = plt.subplots(1)
+ax.imshow(data)
+plt.savefig('full_map.png')
+plt.show()
 # data = np.random.rand(1000,1000)
 def find_maximas(data):
     coordinates = peak_local_max(data, min_distance=1)
