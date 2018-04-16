@@ -81,14 +81,18 @@ filtered_mount = filters.convolve(mount, kernel)
 s = time.time()
 filtered_data = skimage.gaussian(data)
 print(time.time() - s)
-show_fit(plain)
-show_fit(peak1)
-peak1 = filtered_data[330:355, 400:440]
-mount = filtered_data[660:700, 640:730]
-plain = filtered_data[660:700, 450:520]
+# show_fit(plain)
 # show_fit(peak1)
-# show_fit(filtered_peak)
-# show_fit(mount)
-show_fit(plain)
+# peak1 = filtered_data[330:355, 400:440]
+# mount = filtered_data[660:700, 640:730]
+# plain = filtered_data[660:700, 450:520]
+# # show_fit(peak1)
+# # show_fit(filtered_peak)
+# # show_fit(mount)
+# show_fit(plain)
 # show_fit(filtered_mount)
+
+peaks = np.load('./Gory_Doliny/peaks.npy')
+
+print(peaks)
 
